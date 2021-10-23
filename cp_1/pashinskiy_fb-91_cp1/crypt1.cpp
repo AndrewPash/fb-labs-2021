@@ -1,4 +1,6 @@
-﻿#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <cmath>
@@ -53,9 +55,15 @@ std::string format(std::string s) {
         if (!(s[i] >= 'а' && s[i] <= 'я') && s[i]!='ё') {
             s[i]=' ';
         }
-        
     }
-    return s;
+    std::string t;
+    char* pch = strtok((char*)s.c_str(), " ");
+    while (pch != NULL) {
+        t += std::string(pch)+" ";
+        pch = strtok(NULL, " ");
+    }
+    
+    return t;
 }
 
 std::string probdel(std::string s) {
@@ -80,6 +88,7 @@ double ent(std::string s,std::string alpha) {
     double ent=0;
     for (int i = 0; i < alpha.length(); i++) {
         double count = 0;
+        std::cout << alpha[i] << " ";
         for (int j = 0; j < s.length(); j++) {
             if (alpha[i] == s[j]) {
                 count++;
@@ -125,7 +134,7 @@ double bientfreqent2(std::string s, std::string alpha) {
     for (int i = 0; i < alpha.length(); i++) {
         for (int j = 0; j < alpha.length(); j++) {
             double count = 0;
-            
+            std::cout << alpha[i] << alpha[j] << " ";
             for (int m = 0; m < s.length() - 3; m += 2) {
                 if (alpha[i] == s[m] && alpha[j] == s[m + 1]) {
                    
@@ -176,18 +185,18 @@ int main() {
         ou << probdel(format(text)) << std::endl;
     }
     
-    std::cout << "С пробелами" << std::endl;
-   // std::cout << "Энтропия:" << ent(format(text),alphp) << std::endl;
-    std::cout << "H1" << std::endl;
-  //  std::cout << "Энтропия:" << bifreqent(format(text),alphp) << std::endl;
-    std::cout << "H2" << std::endl;
-  //  std::cout << "Энтропия:" << bientfreqent2(format(text),alphp) << std::endl;
-    std::cout << "Без пробелов" << std::endl;
-  //  std::cout << "Энтропия:" << ent(probdel(format(text)),alph) << std::endl;
-    std::cout << "H1" << std::endl;
-   // std::cout << "Энтропия:" << bifreqent(probdel(format(text)),alph) << std::endl;
-    std::cout << "H2" << std::endl;
-    std::cout << "Энтропия:" << bientfreqent2(probdel(format(text)),alph) << std::endl;
+   std::cout << "З пробілами" << std::endl;
+   std::cout << "Ентропія:" << ent(format(text),alphp) << std::endl;
+   std::cout << "H1" << std::endl;
+   std::cout << "Ентропія:" << bifreqent(format(text),alphp) << std::endl;
+   std::cout << "H2" << std::endl;
+   std::cout << "Ентропія:" << bientfreqent2(format(text),alphp) << std::endl;
+   std::cout << "Без пробілів" << std::endl;
+   std::cout << "Ентропія:" << ent(probdel(format(text)),alph) << std::endl;
+   std::cout << "H1" << std::endl;
+   std::cout << "Ентропія:" << bifreqent(probdel(format(text)),alph) << std::endl;
+   std::cout << "H2" << std::endl;
+   std::cout << "Ентропія:" << bientfreqent2(probdel(format(text)),alph) << std::endl;
     
 
 
